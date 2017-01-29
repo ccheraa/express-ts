@@ -1,0 +1,24 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "0.1.0",
+	"command": "cmd",
+	"args": ["/C"],
+	"isShellCommand": true,
+	"showOutput": "always",
+	"suppressTaskName": true,
+	"tasks": [
+		{
+			"taskName": "build & watching",
+			"args": ["npm", "run", "watch"],
+			"isBuildCommand": true,
+			"isWatching": true,
+			"showOutput": "never"
+		}, {
+			"taskName": "code coverage",
+			"args": ["npm", "run", "cover"],
+			"isTestCommand": true,
+			"showOutput": "never"
+		}
+	]
+}

@@ -1,0 +1,21 @@
+known bugs:
+	installing:
+		npm run build:
+		npm cover run watch:
+		npm cover start:
+		npm cover test:
+		npm cover lint:
+		npm cover cover:
+	housekeeping:
+		✔ coverage reports @done (27/10/2016, 16:01:18)
+		☐ delete files before build
+		☐ delete files before cover
+		☐ delete js report after cover
+		☐ documentation
+	Server:
+		☐ merge default and given config
+		✔ serve from build/dist option @done (27/10/2016, 18:30:30)
+	gulp mocha-w:
+		☐ sometimes it stops watching on error
+		☐ sometimes it keeps the serer running, which ruin the next test (after an error)
+	databases:
