@@ -2,13 +2,14 @@
 import * as express from 'express';
 import * as path from 'path';
 import { Server, Controller, Route } from '../express-ts';
-import { HomeRoute, ApiRoute, TestRoute } from './routes';
+import { ApiRoute, TestRoute } from './routes';
 export const server: Server = Server.bootstrap();
 server.middleware(function(req, res, next) {
 	// console.log(req.method + ': ' + req.url);
 	next();
 });
-server.applyRoutes([HomeRoute, ApiRoute, TestRoute]);
+server.applyRoutes([ApiRoute, TestRoute]);
+server.static('output/public', '/');
 server.static('output/coverage/lcov-report', '/Rjs');
 server.static('output/coverage/lcov-report-ts', '/Rts');
 server.route('/routes/1', function(req, res, next) {

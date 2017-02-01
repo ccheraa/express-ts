@@ -27,7 +27,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".", ".ts", ".tsx", ".webpack.js", ".web.js", ".js"],
+    extensions: [".ts", ".tsx", ".webpack.js", ".web.js", ".js", "."],
   },
   plugins: [new webpack.optimize.UglifyJsPlugin()],
   externals: nodeModules

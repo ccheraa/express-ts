@@ -1,7 +1,7 @@
 {
   "name": "express-ts",
   "version": "0.1.0",
-  "description": "Restful Express JS for typescript",
+  "description": "Restful Express JS for Typescript",
   "scripts": {
     "start": "gulp server",
     "start:p": "gulp server-p",
@@ -23,31 +23,22 @@
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.0.0-beta.18",
-    "babel-loader": "^6.2.10",
-    "babelify": "^7.3.0",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
     "gulp-empty": "^0.1.1",
     "gulp-istanbul": "^1.1.1",
     "gulp-mocha": "^3.0.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-replace": "^0.5.4",
     "gulp-run": "^1.7.1",
-    "gulp-shell": "^0.5.2",
     "gulp-tslint": "^6.1.2",
-    "gulp-typescript": "^3.0.2",
-    "gulp-uglify": "^2.0.0",
-    "gulp-webpack": "^1.5.0",
     "jasmine-core": "^2.5.2",
     "mocha": "^3.1.2",
-    "mocha-istanbul": "^0.3.0",
-    "mocha-typescript": "^1.0.11",
+    "mocha-typescript": "^1.0.18",
     "remap-istanbul": "^0.7.0",
     "source-map-support": "^0.4.11",
     "tslint": "^3.15.1",
     "typescript": "^2.0.6",
-    "webpack": "^2.2.0",
-    "webpack-stream": "^3.2.0"
+    "webpack": "^2.2.0"
   }
 }

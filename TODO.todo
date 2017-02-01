@@ -18,4 +18,7 @@ known bugs:
 	gulp mocha-w:
 		☐ sometimes it stops watching on error
 		☐ sometimes it keeps the serer running, which ruin the next test (after an error)
+	webpack:
+		☐ include libraries (js / css)
+		☐ bundle libraries
 	databases:

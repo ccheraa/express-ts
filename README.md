@@ -1,3 +1,3 @@
 # express-ts
 
-## Restful Express JS for typescript
+## Restful Express JS for Typescript
