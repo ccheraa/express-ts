@@ -1,21 +1,52 @@
 known bugs:
 	installing:
 		npm run build:
+			☐ gulp
+			☐ tsc
+			☐ typescript
+			☐ tsd ¦ tsd install
 		npm cover run watch:
 		npm cover start:
 		npm cover test:
 		npm cover lint:
 		npm cover cover:
 	housekeeping:
-		✔ coverage reports @done (27/10/2016, 16:01:18)
-		☐ delete files before build
-		☐ delete files before cover
-		☐ delete js report after cover
-		☐ documentation
+		☐ @today coverage reports
+		☐ @today delete files before build
+		☐ @today delete files before cover
+		☐ @today delete js report after cover
+		☐ @today documentation
 	Server:
-		☐ merge default and given config
-		✔ serve from build/dist option @done (27/10/2016, 18:30:30)
+		☐ @today merge default and given config
+		☐ @today serve from build/dist option
 	gulp mocha-w:
 		☐ sometimes it stops watching on error
 		☐ sometimes it keeps the serer running, which ruin the next test (after an error)
 	databases:
+		model:
+			☐ @today bootstrap
+			☐ @today create one
+			☐ @today create multi
+			☐ @today read one
+			☐ @today read multi
+			☐ @today count
+			☐ @today update one
+			☐ @today update multi
+			☐ @today delete one
+			☐ @today delete multi
+			route:
+				☐ @today C: POST /
+				☐ @today R: GET /i
+				☐ @today U: PUT /i
+				☐ @today D: DELETE /i
+				☐ @today MC: POST /
+				☐ @today MR: GET /
+				☐ @today MU: PUT / *
+				☐ @today MD: DELETE / *
+		testing:
+			mocha:
+				☐ @today db
+				☐ @today model
+			coverage:
+				☐ @today db
+				☐ @today model
