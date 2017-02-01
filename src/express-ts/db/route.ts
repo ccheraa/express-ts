@@ -1,10 +1,10 @@
 import { Model } from './model';
-import { extend } from '../utils';
+// import { extend } from '../utils';
 import * as express from 'express';
 import { Server, Controller, Route, Handles } from '..//server';
 
 function resultBase(data: Object, ok: boolean = true): any {
-	return extend({ok: ok}, data);
+	// return extend({ok: ok}, data);
 }
 function resultError(...errs: any[]): any {
 	return resultBase({errs: errs}, false);

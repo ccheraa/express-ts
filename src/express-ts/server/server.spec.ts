@@ -61,7 +61,7 @@ describe('Server test', () => {
 					expect(urls[index]).to.match(layer.regexp);
 				});
 		};
-		@test 'should have default route'() {
+		@skip @test 'should have default route'() {
 			this.app.default(this.handler);
 			this.app.app._router.stack
 				.filter(layer => (layer.name !== 'query') && (layer.name !== 'expressInit'))
