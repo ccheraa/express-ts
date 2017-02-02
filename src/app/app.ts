@@ -3,8 +3,20 @@ import * as express from 'express';
 import * as path from 'path';
 import { Server, Controller, Route } from '../express-ts';
 import { ApiRoute, TestRoute } from './routes';
+
+import { DB } from '../express-ts/db';
+import { PostModel } from './db';
+
 export const server: Server = Server.bootstrap();
-console.info(process.cwd());
+DB.connect('mongodb://localhost/db').subscribe(con => {
+	console.log('DB connected');
+	// DB.test().then((su: any[]) => console.log(su.length));
+	// con.db.collectionNames(function (err, names) {
+	// 	console.log(names); // [{ name: 'dbname.myCollection' }]
+	// });
+	console.log(con.collections);
+	PostModel.list().subscribe(posts => console.log(posts));
+});
 server.middleware(function(req, res, next) {
 	// console.log(req.method + ': ' + req.url);
 	next();

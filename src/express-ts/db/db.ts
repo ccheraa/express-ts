@@ -25,6 +25,6 @@ export class DB {
 		return promise;
 	}
 }
-export const dbReady = function(next?: (value: Connection) => void, error?: (error: any) => void, complete?: () => void): Subscription {
-	return DB.connection.subscribe(next, error, complete);
-};
+// export const dbReady = function(next?: (value: Connection) => void, error?: (error: any) => void, complete?: () => void): Subscription {
+// 	return DB.connection.subscribe(next, error, complete);
+// };
