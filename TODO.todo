@@ -16,6 +16,7 @@ known bugs:
 		✔ delete files before cover @done (02/02/2017, 01:06:21)
 		✘ @today delete js report after cover @cancelled (02/02/2017, 01:06:24)
 		☐ auto refresh
+		☐ debug view (postman like)
 		☐ documentation
 	Server:
 		✔ merge default and given config @done (02/02/2017, 00:56:33)
@@ -33,9 +34,9 @@ known bugs:
 		model:
 			✔ mongoose typings @done (2/2/2017, 3:24:37 PM)
 			✔ bootstrap @done (2/2/2017, 3:24:38 PM)
-			☐ @today create one
-			☐ @today create multi
-			☐ @today read one
+			✔ create one @done (02/02/2017, 21:33:24)
+			✔ create multi @done (02/02/2017, 21:41:48)
+			✔ read one @done (02/02/2017, 21:14:28)
 			✔ read multi @done (2/2/2017, 3:24:47 PM)
 			☐ @today count
 			☐ @today update one
