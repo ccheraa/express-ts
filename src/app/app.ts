@@ -10,11 +10,6 @@ import { PostModel } from './db';
 export const server: Server = Server.bootstrap();
 DB.connect('mongodb://localhost/db').subscribe(con => {
 	console.log('DB connected');
-	// DB.test().then((su: any[]) => console.log(su.length));
-	// con.db.collectionNames(function (err, names) {
-	// 	console.log(names); // [{ name: 'dbname.myCollection' }]
-	// });
-	console.log(con.collections);
 	PostModel.list().subscribe(posts => console.log(posts));
 });
 server.middleware(function(req, res, next) {
@@ -23,8 +18,8 @@ server.middleware(function(req, res, next) {
 });
 server.applyRoutes([ApiRoute, TestRoute]);
 server.static('public', '/');
-server.static('W:/github/express-ts/output/coverage/lcov-report', '/Rjs');
-server.static('W:/github/express-ts/output/coverage/lcov-report-ts', '/Rts');
+server.static('/github/express-ts/output/coverage/lcov-report', '/Rjs');
+server.static('/github/express-ts/output/coverage/lcov-report-ts', '/Rts');
 server.route('/routes/1', function(req, res, next) {
 	res.send('<h1 style="text-align:center">Test route 1!</h1>');
 });

@@ -1,14 +1,13 @@
-import { mongo, dbReady } from './db';
-import * as mg from 'mongoose';
-mg.Promise = global.Promise;
+// import { mongo } from './db';
+import { Schema, Model as mgModel, model, Document, SchemaOptions } from 'mongoose';
 import { Observable, Subject, Subscription } from 'rxjs';
 
 export class Model {
-	schema: mg.Schema;
-	model: mg.Model<any>;
-	constructor(public name: string, public definition?: Object, options?: mg.SchemaOptions) {
-		this.schema = new mongo.Schema(definition);
-		this.model = mongo.model(name, this.schema);
+	schema: Schema;
+	model: mgModel<any>;
+	constructor(public name: string, public definition?: Object, options?: SchemaOptions) {
+		this.schema = new Schema(definition);
+		this.model = model(name, this.schema);
 		// dbReady(conn => console.log(this.name + ' model ready'));
 	}
 	test() {
@@ -17,39 +16,39 @@ export class Model {
 		});
 	}
 	// C
-	new(document: Object | Object[]): Subject<mg.Document> {
-		let result: Subject<mg.Document> = new Subject();
+	new(document: Object | Object[]): Subject<Document> {
+		let result: Subject<Document> = new Subject();
 		if (typeof (document as Object[]).forEach === 'function') {
 			let documents = document as Object[];
 			let current = 0;
 			documents.forEach(doc => this.new(doc).subscribe(
-				(res: mg.Document) => result.next(res) || (++current === documents.length) && result.complete()),
+				(res: Document) => result.next(res) || (++current === documents.length) && result.complete()),
 				(err: any) => result.error(err)
 			);
 		} else {
-			let cb = (err: any, res: mg.Document) => err ? result.error(err) : (result.next(res) && result.complete());
+			let cb = (err: any, res: Document) => err ? result.error(err) : (result.next(res) && result.complete());
 			let model = new this.model(document);
 			model.save(cb);
 		}
 		return result;
 	}
 	// R
-	list(...args: Object[]): Subject<mg.Document[]> {
-		let result: Subject<mg.Document[]> = new Subject();
-		let cb = (err: any, res: mg.Document[]) => err ? result.error(err) : (result.next(res) && result.complete());
+	list(...args: Object[]): Subject<Document[]> {
+		let result: Subject<Document[]> = new Subject();
+		let cb = (err: any, res: Document[]) => err ? result.error(err) : (result.next(res) && result.complete());
 		args.splice(3, 0, cb);
 		this.model.find.apply(this.model, args);
 		return result;
 	}
 	count(conditions?: Object): Subject<number> {
 		let result: Subject<number> = new Subject();
-		let cb = (err: any, res: mg.Document[]) => err ? result.error(err) : (result.next(res.length) && result.complete());
+		let cb = (err: any, res: Document[]) => err ? result.error(err) : (result.next(res.length) && result.complete());
 		this.model.find(conditions, '_id', cb);
 		return result;
 	}
-	get(id: string, ...args: Object[]): Subject<mg.Document> {
-		let result: Subject<mg.Document> = new Subject();
-		let cb = (err: any, res: mg.Document) => err ? result.error(err) : (result.next(res) && result.complete());
+	get(id: string, ...args: Object[]): Subject<Document> {
+		let result: Subject<Document> = new Subject();
+		let cb = (err: any, res: Document) => err ? result.error(err) : (result.next(res) && result.complete());
 		args.splice(2, 0, cb);
 		this.model.findById.apply(this.model, [id, ...args]);
 		return result;
@@ -76,7 +75,7 @@ export class Model {
 	// D
 	delete(conditions?: string | Object): Subject<any> {
 		let result: Subject<any> = new Subject();
-		let cb = (err: any, res: any) => err ? result.error(err) : (result.next(res.result) && result.complete());
+		let cb = (err: any) => err ? result.error(err) : (result.next(true) && result.complete());
 		// console.log('type: ', (typeof conditions === 'string') ? {_id: conditions} : conditions);
 		this.model.remove((typeof conditions === 'string') ? {_id: conditions} : conditions, cb);
 		return result;

@@ -1,5 +1,5 @@
 import { Model } from '../../express-ts/db';
-export const PostModel = new Model('Room', {
+export const PostModel = new Model('Post', {
 	title: {type: String},
 	author: {type: String},
 	body: {type: String},

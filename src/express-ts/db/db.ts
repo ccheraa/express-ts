@@ -1,16 +1,16 @@
-import { Mongoose, Connection } from 'mongoose';
+import { Connection, connect, connection } from 'mongoose';
 import { Observable, Subject, Subscription } from 'rxjs';
-export const mongo = new Mongoose();
+// export const mongo = new Mongoose();
 export class DB {
 	static observer: any;
 	static connection: Subject<Connection> = new Subject();
 	static connect (url: string): Subject<Connection> {
-		mongo.connect(url, function (err) {
+		connect(url, function (err) {
 			// Standup.find((err, standups) => console.log(err, standups));
 			if (err) {
 				DB.connection.error(err);
 			} else {
-				DB.connection.next(mongo.connection);
+				DB.connection.next(connection);
 				// observer.complete();
 			}
 		});
