@@ -4,14 +4,15 @@ import * as path from 'path';
 import { Server, Controller, Route } from '../express-ts';
 import { ApiRoute, TestRoute } from './routes';
 export const server: Server = Server.bootstrap();
+console.info(process.cwd());
 server.middleware(function(req, res, next) {
 	// console.log(req.method + ': ' + req.url);
 	next();
 });
 server.applyRoutes([ApiRoute, TestRoute]);
-server.static('output/public', '/');
-server.static('output/coverage/lcov-report', '/Rjs');
-server.static('output/coverage/lcov-report-ts', '/Rts');
+server.static('public', '/');
+server.static('W:/github/express-ts/output/coverage/lcov-report', '/Rjs');
+server.static('W:/github/express-ts/output/coverage/lcov-report-ts', '/Rts');
 server.route('/routes/1', function(req, res, next) {
 	res.send('<h1 style="text-align:center">Test route 1!</h1>');
 });
@@ -24,4 +25,4 @@ server.default(function (req, res, next) {
 	res.send(err);
 	next();
 });
-server.start(() => console.log('server started'));
+server.start(() => console.log('server started on ' + server.config.host + ':' + server.config.port));

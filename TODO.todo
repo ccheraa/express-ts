@@ -11,20 +11,22 @@ known bugs:
 		npm cover lint:
 		npm cover cover:
 	housekeeping:
-		☐ @today coverage reports
-		☐ @today delete files before build
-		☐ @today delete files before cover
-		☐ @today delete js report after cover
-		☐ @today documentation
+		✔ coverage reports @done (02/02/2017, 01:02:23)
+		✔ delete files before build @done (02/02/2017, 01:05:04)
+		✔ delete files before cover @done (02/02/2017, 01:06:21)
+		✘ @today delete js report after cover @cancelled (02/02/2017, 01:06:24)
+		☐ documentation
 	Server:
-		☐ @today merge default and given config
-		☐ @today serve from build/dist option
+		✔ merge default and given config @done (02/02/2017, 00:56:33)
+		✔ serve from build/dist option @done (02/02/2017, 00:56:39)
 	gulp mocha-w:
 		☐ sometimes it stops watching on error
 		☐ sometimes it keeps the serer running, which ruin the next test (after an error)
 <<<<<<< HEAD
 	webpack:
-		☐ include libraries (js / css)
+		✔ include libraries (js / css) @done (02/02/2017, 00:54:14)
+		☐ compile less
+		☐ compile scss
 		☐ bundle libraries
 	databases:
 =======

@@ -1,0 +1,13 @@
+{
+  "name": "express-ts",
+  "globalDependencies": {
+    "chai": "github:DefinitelyTyped/DefinitelyTyped/chai/chai.d.ts#003c965b31ab9c478937a7b6e56dfb74f94b5c47",
+    "es6-shim": "registry:dt/es6-shim#0.31.2+20160726072212",
+    "express": "github:DefinitelyTyped/DefinitelyTyped/express/express.d.ts#44cb62e919a165dcf164c0dd44cabc4984bf1f28",
+    "express-serve-static-core": "github:DefinitelyTyped/DefinitelyTyped/express-serve-static-core/express-serve-static-core.d.ts#44cb62e919a165dcf164c0dd44cabc4984bf1f28",
+    "mime": "github:DefinitelyTyped/DefinitelyTyped/mime/mime.d.ts#44cb62e919a165dcf164c0dd44cabc4984bf1f28",
+    "mocha": "github:DefinitelyTyped/DefinitelyTyped/mocha/mocha.d.ts#003c965b31ab9c478937a7b6e56dfb74f94b5c47",
+    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#44cb62e919a165dcf164c0dd44cabc4984bf1f28",
+    "serve-static": "github:DefinitelyTyped/DefinitelyTyped/serve-static/serve-static.d.ts#44cb62e919a165dcf164c0dd44cabc4984bf1f28"
+  }
+}

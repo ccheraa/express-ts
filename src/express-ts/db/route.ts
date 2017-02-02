@@ -39,7 +39,7 @@ export const ModelRoutes = function (model: Model, url: string = '/'): Route[] {
 			);
 		});
 	return [multi];
-}
+};
 export const ModelController = function (model: Model, baseurl: string = '/', url: string = '/'): Controller {
 	return new Controller(baseurl, ModelRoutes(model, url));
-}
+};
