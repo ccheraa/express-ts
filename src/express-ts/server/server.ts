@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as http from 'http';
 import { Controller } from './controller';
 import { isPortFree } from './tools';
+import * as bodyParser from 'body-parser';
 export const serverDefaultConfig = {
   port: 8001,
   host: '0.0.0.0'
@@ -30,6 +31,8 @@ export class Server {
       }
     }
     this.app = express();
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
   }
   public applyRoutes(controllers: Controller[]): void {
     controllers.forEach(controller => (this.controllers.indexOf(controller) > -1) || this.controllers.push(controller));
@@ -38,6 +41,7 @@ export class Server {
     url = url || '/' + dir;
     let route = {
       url: url,
+      dir,
       handle: express.static(dir)
     };
     this.statics.push(route);
@@ -88,7 +92,7 @@ export class Server {
   }
   public routeReport(): any {
     return {
-      static: this.statics.map(route => route.url),
+      static: this.statics.map(route => route.url + ': ' + route.dir),
       route: this.routes.map(route => route.url),
       controllers: this.controllers.map(controller => {
         return {
@@ -96,6 +100,7 @@ export class Server {
           urls: controller.routes.map((route) => {
             return {
               url: route.url,
+              fullUrl: controller.base + route.url,
               methods: route.handles.map((handle, method) => method)
             };
           })

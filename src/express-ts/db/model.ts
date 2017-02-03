@@ -15,12 +15,12 @@ export class Model {
     });
   }
   // C
-  new(document: Object | Object[]): Subject<Document> {
+  create(document: Object | Object[]): Subject<Document> {
     let result: Subject<Document> = new Subject();
     if (typeof (document as Object[]).forEach === 'function') {
       let documents = document as Object[];
       let current = 0;
-      documents.forEach(doc => this.new(doc).subscribe(
+      documents.forEach(doc => this.create(doc).subscribe(
         (res: Document) => result.next(res) || (++current === documents.length) && result.complete()),
         (err: any) => result.error(err)
       );
@@ -35,7 +35,9 @@ export class Model {
   list(...args: Object[]): Subject<Document[]> {
     let result: Subject<Document[]> = new Subject();
     let cb = (err: any, res: Document[]) => err ? result.error(err) : (result.next(res) && result.complete());
+    // while (args.length < 3 ) args.push(undefined);
     args.splice(3, 0, cb);
+    console.log(args);
     this.model.find.apply(this.model, args);
     return result;
   }

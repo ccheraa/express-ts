@@ -21,12 +21,14 @@ known bugs:
 	Server:
 		✔ merge default and given config @done (02/02/2017, 00:56:33)
 		✔ serve from build/dist option @done (02/02/2017, 00:56:39)
+		☐ route report
 	gulp mocha-w:
 		☐ sometimes it stops watching on error
 		☐ sometimes it keeps the serer running, which ruin the next test (after an error)
 	webpack:
 		✔ include libraries (js / css) @done (02/02/2017, 00:54:14)
 		☐ generate package.json with needed modules
+		☐ generate gulpfile.js with needed tasks
 		☐ compile less
 		☐ compile scss
 		☐ bundle libraries
@@ -38,24 +40,24 @@ known bugs:
 			✔ create multi @done (02/02/2017, 21:41:48)
 			✔ read one @done (02/02/2017, 21:14:28)
 			✔ read multi @done (2/2/2017, 3:24:47 PM)
-			☐ @today count
-			☐ @today update one
-			☐ @today update multi
-			☐ @today delete one
-			☐ @today delete multi
+			✔ count @done (03/02/2017, 07:35:10)
+			✔ update one @done (03/02/2017, 07:37:22)
+			✔ update multi @done (03/02/2017, 07:39:27)
+			✔ delete one @done (03/02/2017, 07:41:57)
+			✔ delete multi @done (03/02/2017, 07:41:58)
 			route:
-				☐ @today C: POST /
-				☐ @today R: GET /i
-				☐ @today U: PUT /i
-				☐ @today D: DELETE /i
-				☐ @today MC: POST /
-				☐ @today MR: GET /
-				☐ @today MU: PUT / *
-				☐ @today MD: DELETE / *
+				✔ C: POST / @done (03/02/2017, 09:14:49)
+				✔ R: GET /i @done (03/02/2017, 11:19:55)
+				✔ U: PUT/POST /i @done (03/02/2017, 11:19:54)
+				✔ D: DELETE /i @done (03/02/2017, 11:20:55)
+				✔ MC: POST / @done (03/02/2017, 09:14:47)
+				✔ MR: GET / @done (03/02/2017, 09:03:31)
+				✔ MU: PUT / * @done (03/02/2017, 11:06:50)
+				✔ MD: DELETE / * @done (03/02/2017, 11:13:51)
 		testing:
 			mocha:
-				☐ @today db
-				☐ @today model
+				☐ db
+				☐ model
 			coverage:
-				☐ @today db
-				☐ @today model
+				☐ db
+				☐ model
