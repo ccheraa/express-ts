@@ -1,3 +1,5 @@
+src/app/**
+public/**
 typings/**
 node_modules
 **/*npm-debug.log.*
