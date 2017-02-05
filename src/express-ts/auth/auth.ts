@@ -103,11 +103,9 @@ export class Auth {
               done(null, user, 'logged');
             }
           } else {
-            console.error('wrong password');
             done(null, false, 'wrong password');
           }
         } else {
-          console.error('user not found');
           done(null, false, 'user not found');
         }
       });
@@ -190,25 +188,6 @@ export class Auth {
           });
         }
       });
-      // next();
-      // Auth.model.list({username: req.body.username}).subscribe(res => {
-      //   if (res.length) {
-      //     let user = res[0];
-      //     if (Auth.check(user, req.body.password)) {
-      //       if ((user = Auth.serialize(user)).subscribe) {
-      //         user.subscribe(user => done(null, user, 'logged'));
-      //       } else {
-      //         done(null, user, 'logged');
-      //       }
-      //     } else {
-      //       console.error('wrong password');
-      //       done(null, false, 'wrong password');
-      //     }
-      //   } else {
-      //     console.error('user not found');
-      //     done(null, false, 'user not found');
-      //   }
-      // });
     };
   }
 }

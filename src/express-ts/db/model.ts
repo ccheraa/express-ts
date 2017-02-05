@@ -1,4 +1,3 @@
-// import { mongo } from './db';
 import { Schema, Model as mgModel, model, Document, SchemaOptions } from 'mongoose';
 import { Observable, Subject, Subscription } from 'rxjs';
 
@@ -78,13 +77,3 @@ export class Model {
     return result;
   }
 }
-
-// let standupSchema = new mongo.Schema({
-//   memberName: String,
-//   project: String,
-//   workYesterday: String,
-//   workToday: String,
-//   impediment: String,
-//   createdOn: Date
-// });
-// let Standup = mongo.model('Standup', standupSchema);

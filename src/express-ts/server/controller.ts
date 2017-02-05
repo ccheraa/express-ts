@@ -1,4 +1,3 @@
-// import 'source-map-support/register';
 import * as express from 'express';
 import { Route } from './route';
 export class Controller {

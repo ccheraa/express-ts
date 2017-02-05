@@ -2,9 +2,6 @@ import * as express from 'express';
 const HTTP_METHODS: string[] = ['options', 'patch', 'get', 'head', 'post', 'put', 'delete', 'trace', 'connect'];
 export class Handles {
   constructor() {}
-  // static create(method: string, fun: express.RequestHandler): Handles {
-  //   return new Handles().on(method, fun);
-  // }
   public forEach(fun: Function) {
     HTTP_METHODS
       .filter(key => this[key])

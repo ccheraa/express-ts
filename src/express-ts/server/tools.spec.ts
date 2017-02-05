@@ -1,4 +1,3 @@
-// import 'source-map-support/register';
 import { suite, test, slow, timeout, skip, only } from 'mocha-typescript';
 import chai = require('chai');
 let expect = chai.expect;
