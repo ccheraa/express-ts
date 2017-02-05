@@ -1,4 +1,4 @@
-import { PostModel } from './db';
+import { PostModel, UserModel } from './db';
 import { Route, ModelRoutes } from '../express-ts';
 export const testDB = function() {
   // model.list
@@ -49,5 +49,5 @@ export const testDB = function() {
   // PostModel.delete({body: 'Testing.3...'}).subscribe(res => console.log(res));
 };
 export const testDBRoute = function(): Route[] {
-  return [...ModelRoutes(PostModel, '/post')];
+  return [...ModelRoutes(PostModel, '/post'), ...ModelRoutes(UserModel, '/user')];
 };

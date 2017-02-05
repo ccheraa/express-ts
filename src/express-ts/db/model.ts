@@ -7,6 +7,9 @@ export class Model {
   model: mgModel<any>;
   constructor(public name: string, public definition?: Object, options?: SchemaOptions) {
     this.schema = new Schema(definition);
+    this.makeModel(name);
+  }
+  makeModel(name) {
     this.model = model(name, this.schema);
   }
   test() {
@@ -37,7 +40,6 @@ export class Model {
     let cb = (err: any, res: Document[]) => err ? result.error(err) : (result.next(res) && result.complete());
     // while (args.length < 3 ) args.push(undefined);
     args.splice(3, 0, cb);
-    console.log(args);
     this.model.find.apply(this.model, args);
     return result;
   }

@@ -15,11 +15,11 @@ export class Handles {
       .filter(key => this[key])
       .map(key => fun(this[key], key));
   }
-  public on(method: string | string[], fun: express.RequestHandler | string): Handles {
+  public on(method: string | string[], ...functions: (express.RequestHandler | string)[]): Handles {
     if (typeof method === 'object') {
-      (method as string[]).forEach(methodRef => this.on(methodRef, fun));
+      (method as string[]).forEach(methodRef => this.on(methodRef, ...functions));
     } else {
-      (this as any)[method] = (typeof fun === 'string') ? (this as any)[fun] : fun;
+      (this as any)[method] = (typeof functions[0] === 'string') ? (this as any)[<string>functions[0]] : functions;
     }
     return this;
   }
@@ -30,8 +30,8 @@ export class Route {
   static create(fun: express.RequestHandler, url: string = '/', method: string | string[] = 'get') {
     return new Route(url).on(method, fun);
   }
-  public on(method: string | string[], fun: express.RequestHandler | string): Route {
-    this.handles.on(method, fun);
+  public on(method: string | string[], ...functions: (express.RequestHandler | string)[]): Route {
+    this.handles.on(method, ...functions);
     return this;
   }
 }

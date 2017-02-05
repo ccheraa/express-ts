@@ -12,7 +12,7 @@ export class Controller {
   public setup(app: express.Application): void {
     this.routes.forEach((route) => {
       route.handles.forEach((handle, method) => {
-        this.router[method](route.url, handle);
+        this.router[method](route.url, ...handle);
       });
     });
     app.use(this.base, this.router);

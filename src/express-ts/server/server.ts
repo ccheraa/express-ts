@@ -3,6 +3,7 @@ import * as http from 'http';
 import { Controller } from './controller';
 import { isPortFree } from './tools';
 import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 export const serverDefaultConfig = {
   port: 8001,
   host: '0.0.0.0'
@@ -33,6 +34,7 @@ export class Server {
     this.app = express();
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(cookieParser());
   }
   public applyRoutes(controllers: Controller[]): void {
     controllers.forEach(controller => (this.controllers.indexOf(controller) > -1) || this.controllers.push(controller));
@@ -47,19 +49,19 @@ export class Server {
     this.statics.push(route);
     this.app.use(url, route.handle);
   }
-  public default(fun: express.RequestHandler): void {
-    this.app.use((err, req, res, next) => err && fun(req, res, next));
+  public default(...functions: express.RequestHandler[]): void {
+    functions.forEach(fun => this.app.use((err, req, res, next) => err && fun(req, res, next)));
   }
-  public route(url: string, fun: express.RequestHandler): void {
+  public route(url: string, ...functions: express.RequestHandler[]): void {
     this.routes.push({
       url: url,
-      handle: fun
+      handle: functions
     });
-    this.app.use(url, fun);
+    this.app.use(url, ...functions);
   }
-  public middleware(fun: express.RequestHandler): void {
-    this.middlewares.push(fun);
-    this.app.use(fun);
+  public middleware(...functions: express.RequestHandler[]): void {
+    this.middlewares.push(...functions);
+    this.app.use(...functions);
   }
   public ip(): string {
     return this.config.host + ':' + this.config.port;
@@ -93,7 +95,7 @@ export class Server {
   public routeReport(): any {
     return {
       static: this.statics.map(route => route.url + ': ' + route.dir),
-      route: this.routes.map(route => route.url),
+      route: this.routes.map(route => route.url + ' (' + route.handle.length + ')'),
       controllers: this.controllers.map(controller => {
         return {
           url: controller.base,
@@ -101,7 +103,7 @@ export class Server {
             return {
               url: route.url,
               fullUrl: controller.base + route.url,
-              methods: route.handles.map((handle, method) => method)
+              methods: route.handles.map((handle, method) => method + ' (' + handle.length + ')')
             };
           })
         };

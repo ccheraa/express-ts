@@ -13,6 +13,8 @@ var mincss = require('gulp-clean-css');
 var minjs = require('gulp-uglify');
 var minhtml = require('gulp-htmlmin');
 
+var bs = require('browser-sync').create();
+
 var project = [
 	'src/**/*.ts',
 	'!src/**/*.spec.ts'
@@ -49,18 +51,54 @@ function server(production) {
 			script = 'app.js';
 			process.chdir('output/dist');
 		}
-		return nodemon({script}).on('start', function () {
-			// to avoid nodemon being started multiple times
-			// thanks @matthisk
-			if (!started) {
-				cb();
-				started = true;
-			}
-		});
+		return nodemon({script})
+			.on('start', function () {
+				// to avoid nodemon being started multiple times
+				// thanks @matthisk
+				if (!started) {
+					cb();
+					started = true;
+				}
+			})
+			.on('restart', () => {
+				bs.reload();
+			});
 	}
 }
 gulp.task('server', server());
 gulp.task('server-p', server(true));
+
+gulp.task('t', function() {
+	console.log(src);
+	console.log(dst);
+	return gulp.src('gulpfile.js', {read: false}).pipe(empty());
+});
+gulp.task('bs', ['server'], function() {
+	function port(value, def) {
+		if (value) {
+			if (value.substr(0,2) == '--') {
+				value = Number.parseInt(value.substr(2));
+			}
+		}
+		if (!value || Number.isNaN(value)) {
+			value = def;
+		}
+		return value;
+	}
+	var src = port(process.argv[3], 8001);
+	var dst = port(process.argv[4], 3000);
+	var ui = port(process.argv[5], 3001);
+	return bs.init({
+		open: false,
+		port: dst,
+		ui: { port: ui },
+		proxy: 'localhost:' + src
+	});
+});
+gulp.task('dev', ['bs', 'server'], function() {
+	return gulp.watch("public/**/*").on('change', bs.reload);
+});
+
 gulp.task('lint', function() {
 	return gulp.src(project)
 	.pipe(tslint({

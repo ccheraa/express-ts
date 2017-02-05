@@ -8,7 +8,7 @@ let def: Route = Route.create(
 let something: Route = new Route('/something')
   .on(['get', 'post', 'delete'], (req, res, next) => {
     res.send('<b>stuff</b>');
-  });
+  },);
 let somethingelse: Route = new Route('/somethingelse')
   .on(['options', 'patch', 'get', 'head', 'post', 'put', 'delete', 'trace', 'connect'], (req, res, next) => {
     res.send('stuff');
