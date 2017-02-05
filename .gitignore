@@ -1,4 +1,4 @@
-src/app/**
+src/app
 public/**
 typings/**
 node_modules
