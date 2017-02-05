@@ -57,7 +57,7 @@ let register: Route = Route.create((req, res, next) => {
     `);
   }, '/register')
   .on('post', (req, res, next) => {
-    UserModel.delete();
+    // UserModel.delete();
     next();
   }, Auth.register(), (req, res, next) => {
     res.json(req.body.registered);
