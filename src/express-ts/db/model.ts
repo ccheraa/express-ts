@@ -12,11 +12,6 @@ export class Model {
   makeModel(name) {
     this.model = model(name, this.schema);
   }
-  test() {
-    this.model.find((err, records) => {
-      err ? console.log(err) : console.log(records.length);
-    });
-  }
   // C
   create(document: Object | Object[]): Subject<Document> {
     let result: Subject<Document> = new Subject();
@@ -79,7 +74,6 @@ export class Model {
   delete(conditions?: string | Object): Subject<any> {
     let result: Subject<any> = new Subject();
     let cb = (err: any) => err ? result.error(err) : (result.next(true) && result.complete());
-    // console.log('type: ', (typeof conditions === 'string') ? {_id: conditions} : conditions);
     this.model.remove((typeof conditions === 'string') ? {_id: conditions} : conditions, cb);
     return result;
   }

@@ -12,7 +12,6 @@ export const UserModel = new AuthModel('User', {
 //   UserModel.list({username}).subscribe(res => {
 //     if (res.length) {
 //       if (password === res[0].password) {
-//         console.log('logged');
 //         done(null, res[0]);
 //       } else {
 //         console.error('wrong password');

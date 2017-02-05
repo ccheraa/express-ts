@@ -67,12 +67,6 @@ function server(production) {
 }
 gulp.task('server', server());
 gulp.task('server-p', server(true));
-
-gulp.task('t', function() {
-	console.log(src);
-	console.log(dst);
-	return gulp.src('gulpfile.js', {read: false}).pipe(empty());
-});
 gulp.task('bs', ['server'], function() {
 	function port(value, def) {
 		if (value) {

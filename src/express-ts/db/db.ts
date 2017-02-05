@@ -12,7 +12,6 @@ export class DB {
   static accessController: Subject<[Model, express.Request, express.Response, string, express.NextFunction]> = new Subject();
   static connect(url: string): Subject<Connection> {
     connect(url, function (err) {
-      // Standup.find((err, standups) => console.log(err, standups));
       if (err) {
         DB.connection.error(err);
       } else {

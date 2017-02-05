@@ -45,7 +45,6 @@ export class Auth {
       }
       next();
     });
-    console.log('schema ready');
     return Auth;
   }
   static setSerializeFunction(serializeFunction: SerializeFunction) {
@@ -94,7 +93,6 @@ export class Auth {
           }
         }
       }
-      // console.log(Auth.model);
       Auth.model.list({username: req.body.username}).subscribe(res => {
         if (res.length) {
           let user = res[0];
@@ -135,10 +133,8 @@ export class Auth {
           }
         }
       }
-      // console.log('token:', req.cookies.token);
       if (req.cookies.token) {
         Token.verify(req.cookies.token, Auth.secret, (err, user) => {
-          // console.log('id:', user.data);
           user = Auth.deserialize(user.data);
           if (user.subscribe) {
             user.subscribe(user => {
@@ -165,8 +161,6 @@ export class Auth {
   static register(fail?: string | express.RequestHandler) {
     return function(req: express.Request, res: express.Response, next: express.NextFunction) {
       function done(err: {}, result: any, flash?: string) {
-        console.log('DONE: ' + flash);
-        console.log(result);
         if (result) {
           req.body.registered = result;
           next();
@@ -183,7 +177,6 @@ export class Auth {
           }
         }
       }
-      // console.log(req.body);
       let user = {
         username: req.body.username,
         password: req.body.password

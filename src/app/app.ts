@@ -19,7 +19,7 @@ DB.connect('mongodb://localhost/db').subscribe(con => {
 DB.access().subscribe(([model, req, res, id, next]) => {
   console.log('Database access for "' + model.name + '":  ' + req.method + ': ' + req.url);
   if (model.name === 'User') {
-    res.status(403).send('ACCESS DENIED');
+    Auth.isSignedIn((req, res, next) => res.status(403).send('ACCESS DENIED'))(req, res, next);
   } else {
     next();
   }
