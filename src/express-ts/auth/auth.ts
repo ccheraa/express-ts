@@ -77,6 +77,7 @@ export class Auth {
           Token.sign({ data: result }, Auth.secret, Auth.duration, (err, token) => {
             res.cookie('token', token, { maxAge: Auth.duration * 60000});
             req.body.user = result;
+            req.body.token = token;
             next();
           });
         } else {
@@ -89,6 +90,7 @@ export class Auth {
           } else {
             res.clearCookie('token');
             req.body.user = false;
+            req.body.token = false;
             next();
           }
         }
@@ -127,11 +129,13 @@ export class Auth {
           } else {
             res.clearCookie('token');
             req.body.user = false;
+            req.body.token = false;
             next();
           }
         }
       }
       if (req.cookies.token) {
+        req.body.token = req.cookies.token;
         Token.verify(req.cookies.token, Auth.secret, (err, user) => {
           user = Auth.deserialize(user.data);
           if (user.subscribe) {
@@ -141,7 +145,7 @@ export class Auth {
               done(null, null, 'no user');
             });
           } else {
-            done(null, user, 'loggedin');
+            done(null, user, 'logged in');
           }
         });
       } else {
@@ -153,6 +157,7 @@ export class Auth {
     return function(req: express.Request, res: express.Response, next: express.NextFunction) {
       res.clearCookie('token');
       req.body.user = false;
+      req.body.token = false;
       next();
     };
   }
