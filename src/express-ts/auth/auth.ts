@@ -30,6 +30,7 @@ export class Auth {
   private static secret: string = 'SECRET';
   private static duration: number = 86400;
   private static serializeFunction: SerializeFunction;
+  private static cleanFunction: SerializeFunction;
   private static deserializeFunction: SerializeFunction;
   static setup(model: Model, secret: string = 'SECRET', duration: number = 86400) {
     Auth.model = model;
@@ -51,6 +52,10 @@ export class Auth {
     Auth.serializeFunction = serializeFunction;
     return Auth;
   }
+  static setCleanFunction(cleanFunction: SerializeFunction) {
+    Auth.cleanFunction = cleanFunction;
+    return Auth;
+  }
   static setDeserializeFunction(serializeFunction: SerializeFunction) {
     Auth.serializeFunction = serializeFunction;
     return Auth;
@@ -61,22 +66,31 @@ export class Auth {
   static serializeDefault(user): Subject<any> | any {
     return user._id;
   }
+  static cleanDefault(user): Subject<any> | any {
+    user.__v = undefined;
+    user._id = undefined;
+    user.password = undefined;
+    return user;
+  }
   static deserialize(user): Subject<any> | any {
     return (Auth.deserializeFunction || Auth.deserializeDefault)(user);
   }
   static serialize(user): Subject<any> | any {
     return (Auth.serializeFunction || Auth.serializeDefault)(user);
   }
+  static clean(user): Subject<any> | any {
+    return (Auth.cleanFunction || Auth.cleanDefault)(user);
+  }
   static check(user, password): boolean {
     return crypt.compareSync(password, user.password);
   }
   static signIn(fail?: string | express.RequestHandler) {
     return function(req: express.Request, res: express.Response, next: express.NextFunction) {
-      function done(err: {}, result: any, flash?: string) {
+      function done(err: {}, result: any, serializedResult: any, flash?: string) {
         if (result) {
-          Token.sign({ data: result }, Auth.secret, Auth.duration, (err, token) => {
+          Token.sign({ data: serializedResult }, Auth.secret, Auth.duration, (err, token) => {
             res.cookie('token', token, { maxAge: Auth.duration * 60000});
-            req.body.user = result;
+            req.body.user = Auth.clean(result);
             req.body.token = token;
             next();
           });
@@ -98,17 +112,18 @@ export class Auth {
       Auth.model.list({username: req.body.username}).subscribe(res => {
         if (res.length) {
           let user = res[0];
+          let serializedUser = user;
           if (Auth.check(user, req.body.password)) {
-            if ((user = Auth.serialize(user)).subscribe) {
-              user.subscribe(user => done(null, user, 'logged'));
+            if ((serializedUser = Auth.serialize(user)).subscribe) {
+              user.subscribe(serializedUser => done(null, user, serializedUser, 'logged'));
             } else {
-              done(null, user, 'logged');
+              done(null, user, user, 'logged');
             }
           } else {
-            done(null, false, 'wrong password');
+            done(null, false, false, 'wrong password');
           }
         } else {
-          done(null, false, 'user not found');
+          done(null, false, false, 'user not found');
         }
       });
     };
@@ -117,7 +132,7 @@ export class Auth {
     return function(req: express.Request, res: express.Response, next: express.NextFunction) {
       function done(err: {}, result: any, flash?: string) {
         if (result) {
-          req.body.user = result;
+          req.body.user = Auth.clean(result);
           next();
         } else {
           if (fail) {
