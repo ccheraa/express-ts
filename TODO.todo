@@ -50,6 +50,10 @@ known bugs:
 			✔ update multi @done (03/02/2017, 07:39:27)
 			✔ delete one @done (03/02/2017, 07:41:57)
 			✔ delete multi @done (03/02/2017, 07:41:58)
+			☐ pre load
+			☐ pre save
+			☐ post load
+			☐ post save
 			route:
 				✔ access control @done (03/02/2017, 16:01:52)
 				✔ C: POST / @done (03/02/2017, 09:14:49)
@@ -60,6 +64,7 @@ known bugs:
 				✔ MR: GET / @done (03/02/2017, 09:03:31)
 				✔ MU: PUT / * @done (03/02/2017, 11:06:50)
 				✔ MD: DELETE / * @done (03/02/2017, 11:13:51)
+				☐ handle errors
 		login system:
 			☐ customize fields to save/load
 			☐ use decent errors
