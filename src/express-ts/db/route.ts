@@ -18,6 +18,16 @@ function resultMulti(data, count): any {
 }
 
 export const ModelRoutes = function (model: Model, url: string = '/'): Route[] {
+  console.log(url + '/find');
+  let find: Route = new Route(url + '/find')
+    .on('post', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      DB.canAccess(model, req, res, null, () => {
+        model.list(req.body.doc, req.body.fields, req.body.config).subscribe(
+          documents => model.count(req.body.doc).subscribe(count => res.json(resultMulti(documents, count))),
+          err => res.json(resultError(err))
+        );
+      });
+    });
   let multi: Route = new Route(url)
     .on('post', (req: express.Request, res: express.Response, next: express.NextFunction) => {
       DB.canAccess(model, req, res, null, () => {
@@ -59,7 +69,7 @@ export const ModelRoutes = function (model: Model, url: string = '/'): Route[] {
         );
       });
     });
-  let single: Route = new Route(url + '/:id')
+  let single: Route = new Route(url + '/:id(\\d+)')
     .on('get', (req: express.Request, res: express.Response, next: express.NextFunction) => {
       DB.canAccess(model, req, res, null, () => {
         model.get(req.params.id, req.query.doc).subscribe(
@@ -84,7 +94,7 @@ export const ModelRoutes = function (model: Model, url: string = '/'): Route[] {
         );
       });
     });
-  return [single, multi];
+  return [single, multi, find];
 };
 export const ModelController = function (model: Model, baseurl: string = '/', url: string = '/'): Controller {
   return new Controller(baseurl, ModelRoutes(model, url));

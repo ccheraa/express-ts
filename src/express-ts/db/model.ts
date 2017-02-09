@@ -39,8 +39,9 @@ export class Model {
   }
   count(conditions?: Object): Subject<number> {
     let result: Subject<number> = new Subject();
-    let cb = (err: any, res: Document[]) => err ? result.error(err) : (result.next(res.length) && result.complete());
-    this.model.find(conditions, '_id', cb);
+    let cb = (err: any, res: number) => err ? result.error(err) : (result.next(res) && result.complete());
+    console.log(conditions);
+    this.model.count(conditions, cb);
     return result;
   }
   get(id: string, ...args: Object[]): Subject<Document> {
