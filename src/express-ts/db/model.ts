@@ -40,7 +40,6 @@ export class Model {
   count(conditions?: Object): Subject<number> {
     let result: Subject<number> = new Subject();
     let cb = (err: any, res: number) => err ? result.error(err) : (result.next(res) && result.complete());
-    console.log(conditions);
     this.model.count(conditions, cb);
     return result;
   }

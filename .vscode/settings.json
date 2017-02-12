@@ -10,5 +10,5 @@
 		"tsconfig.json": false,
 		"tslint.json": true
 	},
-	"vsicons.presets.angular": false
+  "vsicons.presets.angular": false
 }

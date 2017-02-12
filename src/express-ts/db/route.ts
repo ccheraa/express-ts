@@ -18,15 +18,20 @@ function resultMulti(data, count): any {
 }
 
 export const ModelRoutes = function (model: Model, url: string = '/', format?: express.RequestHandler): Route[] {
-  console.log(url + '/find');
   let find: Route = new Route(url + '/find')
     .on('post', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+      // console.log('finding', model.name, '...');
+      // console.log('getting access...');
       DB.canAccess(model, req, res, null, () => {
+        // console.log('access granted');
+        // console.log('querying data...');
         model.list(req.body.doc, req.body.fields, req.body.config).subscribe(
           documents => model.count(req.body.doc).subscribe(count => {
+            // console.log('data ready');
+            // console.log(format ? 'formatting...' : 'returning data...');
             if (format) {
               req.body.data = documents;
-              format(req, res, () => res.json(res.json(resultMulti(req.body.data, count))));
+              format(req, res, () => res.json(resultMulti(req.body.data, count)));
             } else {
               res.json(resultMulti(documents, count));
             }
@@ -100,7 +105,6 @@ export const ModelRoutes = function (model: Model, url: string = '/', format?: e
       });
     })
     .on(['put', 'post'], (req: express.Request, res: express.Response, next: express.NextFunction) => {
-      console.log(req.body.doc);
       DB.canAccess(model, req, res, null, () => {
         model.set(req.params.id, req.body.doc).subscribe(
           result => res.json(resultOne(result)),
